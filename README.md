@@ -18,7 +18,9 @@ Water pollution monitoring is traditionally performed through manual sampling an
 
 This project introduces a **low-cost autonomous robotic system** capable of monitoring water quality parameters in real time and transmitting data to a cloud dashboard.
 
-The robot can automatically collect and analyze environmental data from water bodies and visualize it through an IoT-based monitoring system.
+The robot can automatically collect and analyze environmental data from water bodies and visualize it through an **IoT-based monitoring system**.
+
+This project was developed as a **Final Year Research Project at Wayamba University of Sri Lanka** and was **presented at the ASRITE Research Symposium**.
 
 ### Parameters Measured
 
@@ -34,7 +36,7 @@ The robot can automatically collect and analyze environmental data from water bo
 # Complete Robot System
 
 <p align="center">
-<img src="Media/Complete Unit.webp" width="700">
+<img src="Media/Complete Unit.webp" width="500">
 </p>
 
 The final system consists of a floating robotic platform equipped with sensors, wireless communication modules, and an IoT dashboard for monitoring environmental data.
@@ -44,7 +46,7 @@ The final system consists of a floating robotic platform equipped with sensors, 
 # System Architecture
 
 <p align="center">
-<img src="Media/system_architecture.png" width="800">
+<img src="Media/system_architecture.webp" width="800">
 </p>
 
 The system architecture integrates hardware sensors, wireless communication, cloud data processing, and a real-time dashboard.
@@ -74,7 +76,7 @@ The system architecture integrates hardware sensors, wireless communication, clo
 <img src="Media/Boat moadal psd.webp" width="700">
 </p>
 
-The mechanical structure was designed using **SolidWorks** with a **catamaran hull design** to provide stability in water.
+The mechanical structure was designed using **SolidWorks** with a **twin catamaran hull design** to provide stability in water.
 
 ### Key Mechanical Features
 
@@ -88,7 +90,7 @@ The mechanical structure was designed using **SolidWorks** with a **catamaran hu
 # Circuit Design
 
 <p align="center">
-<img src="Media/circuit_diagram.png" width="750">
+<img src="Media/circuit_diagram.webp" width="750">
 </p>
 
 A custom electronic circuit was designed to integrate sensors, communication modules, and power management.
@@ -105,19 +107,20 @@ A custom electronic circuit was designed to integrate sensors, communication mod
 
 # PCB Layout Design
 
-### PCB Top Layer
+The system includes **two custom PCB boards**:
+
+- **Transmitter Unit PCB**
+- **Control Unit PCB**
+
+To reduce fabrication cost and improve manufacturing efficiency, both boards were **panelized into a single PCB fabrication panel**.
+
+### Panelized PCB Layout (Top & Bottom)
 
 <p align="center">
-<img src="Media/pcb_top.png" width="650">
+<img src="Media/panelized_pcb_layout.webp" width="750">
 </p>
 
-### PCB Bottom Layer
-
-<p align="center">
-<img src="Media/pcb_bottom.png" width="650">
-</p>
-
-The PCB was designed using **Altium Designer** with optimized routing and ground planes for stable sensor measurements.
+The PCB layouts were designed using **Altium Designer**, including optimized routing, ground planes, and sensor interface isolation.
 
 ---
 
@@ -127,17 +130,22 @@ The PCB was designed using **Altium Designer** with optimized routing and ground
 <img src="Media/PCB_Prtotype.webp" width="650">
 </p>
 
-Initial testing was conducted using prototype PCBs to validate circuit functionality and sensor interfacing.
+Initial system testing was conducted using prototype PCBs to validate:
+
+- Sensor integration
+- Communication modules
+- Power regulation
+- Microcontroller control logic
 
 ---
 
 # Fabricated PCB
 
 <p align="center">
-<img src="Media/pcb_fabricated.jpg" width="650">
+<img src="Media/pcb_fabricated.webp" width="650">
 </p>
 
-The final PCB was fabricated using **FR4 double-layer boards**, ensuring improved durability and electrical reliability.
+The final PCB boards were fabricated using **FR4 double-layer boards**, improving durability, signal stability, and compact system integration.
 
 ---
 
@@ -159,13 +167,14 @@ The system includes a **real-time IoT dashboard** displaying sensor readings and
 
 ---
 
-# Field Testing
+# Live System Demo
 
-<p align="center">
-<img src="images/field_test.jpg" width="750">
-</p>
+The real-time monitoring dashboard for the **Autonomous Water Quality Monitoring System** is deployed online and can be accessed below.
 
-The robot was tested in real water environments to validate sensor accuracy, wireless communication, and system stability.
+🔗 **Live Dashboard:**  
+https://wqc-web.web.app
+
+This dashboard displays real-time sensor data, and water quality analysis collected by the robotic monitoring system.
 
 ---
 
@@ -208,6 +217,42 @@ The robot was tested in real water environments to validate sensor accuracy, wir
 
 # Project Report
 
-Full research documentation:
+The complete research documentation for this project is available below.
 
-📄 **Download Report**
+📄 **Download Full Report**
+
+[Download Final Report](Documents/Final%20Report.pdf)
+
+---
+
+# Academic Information
+
+**University**  
+Wayamba University of Sri Lanka
+
+**Degree Program**  
+B.Sc. (Joint Major) – Electronics and Computing & Information Systems
+
+**Project Type**  
+Final Year Undergraduate Research Project
+
+**Research Presentation**  
+Presented at **ASRITE Research Symposium**
+
+**Project Supervisor**  
+Eng. S.R.L. Gunawardhana 
+
+---
+
+# Author
+
+**Tharusha Sangeeth**
+
+Electronics & Embedded Systems Developer  
+Wayamba University of Sri Lanka
+
+---
+
+# License
+
+This project is released for **educational and research purposes**.
