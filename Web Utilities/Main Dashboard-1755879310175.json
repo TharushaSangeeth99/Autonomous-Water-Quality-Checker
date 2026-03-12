@@ -1,0 +1,2137 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 18,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "panels": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "min": 0,
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 300
+                  },
+                  {
+                    "color": "dark-orange",
+                    "value": 600
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 900
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 1
+          },
+          "id": 1,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "cevlfpdgqdtdsc"
+              },
+              "query": "from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._measurement == \"mqtt_consumer\" and r._field == \"TDS\")\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"TDS\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "TDS (ppm)",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  },
+                  {
+                    "color": "dark-yellow",
+                    "value": 0.05
+                  },
+                  {
+                    "color": "dark-orange",
+                    "value": 0.1
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 0.2
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 5,
+            "x": 8,
+            "y": 1
+          },
+          "id": 5,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._measurement == \"mqtt_consumer\" and r._field == \"TDS\")\r\n  |> map(fn: (r) => ({ _time: r._time, _value: float(v: r._value)/10000.0 }))\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"salinity\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Salinity (%)",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "min": 0,
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 30
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 40
+                  },
+                  {
+                    "color": "dark-yellow",
+                    "value": 70
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 5,
+            "x": 13,
+            "y": 1
+          },
+          "id": 9,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "cevlfpdgqdtdsc"
+              },
+              "query": "from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._measurement == \"mqtt_consumer\" and r._field == \"humidity\")\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"humidity\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Humidity (%)",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "min": 0,
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 5
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 10
+                  },
+                  {
+                    "color": "dark-yellow",
+                    "value": 20
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 25
+                  }
+                ]
+              },
+              "unit": "celsius"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 5,
+            "x": 18,
+            "y": 1
+          },
+          "id": 11,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "cevlfpdgqdtdsc"
+              },
+              "query": "water = from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._field == \"waterTemp\" and r._measurement == \"mqtt_consumer\")\r\n  |> rename(columns: {_value: \"waterTemp\"})\r\n\r\nhum = from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._field == \"humidity\" and r._measurement == \"mqtt_consumer\")\r\n  |> rename(columns: {_value: \"humidity\"})\r\n\r\njoin(tables: {w: water, h: hum}, on: [\"_time\"])\r\n  |> map(fn: (r) => ({ _time: r._time, _value: r.waterTemp - ((100.0 - r.humidity)/5.0) }))\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"dewPoint\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Dew Point (°C)",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-blue",
+                    "value": 0
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 470
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 940
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 1400
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 5,
+            "x": 8,
+            "y": 6
+          },
+          "id": 4,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._measurement == \"mqtt_consumer\" and r._field == \"TDS\")\r\n  |> map(fn: (r) => ({ _time: r._time, _value: float(v: r._value)/0.64 }))\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"EC\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Electrical Conductivity (µS/cm)",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "min": 0,
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 15
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 20
+                  },
+                  {
+                    "color": "dark-yellow",
+                    "value": 30
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 35
+                  }
+                ]
+              },
+              "unit": "celsius"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 10,
+            "x": 13,
+            "y": 6
+          },
+          "id": 7,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "cevlfpdgqdtdsc"
+              },
+              "query": "from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._measurement == \"mqtt_consumer\" and r._field == \"ambientTemp\")\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"ambientTemp\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Ambient Temperature (°C)",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 17,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "area"
+                }
+              },
+              "mappings": [],
+              "min": 0,
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-blue"
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 15
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 20
+                  },
+                  {
+                    "color": "dark-yellow",
+                    "value": 30
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 35
+                  }
+                ]
+              },
+              "unit": "celsius"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 17,
+            "x": 0,
+            "y": 11
+          },
+          "id": 6,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "cevlfpdgqdtdsc"
+              },
+              "query": "from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._measurement == \"mqtt_consumer\" and r._field == \"waterTemp\")\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"waterTemp\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Water Temperature (°C)",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "min": 0,
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 15
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 20
+                  },
+                  {
+                    "color": "dark-yellow",
+                    "value": 30
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 35
+                  }
+                ]
+              },
+              "unit": "celsius"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 17,
+            "y": 11
+          },
+          "id": 8,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "cevlfpdgqdtdsc"
+              },
+              "query": "from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._measurement == \"mqtt_consumer\" and r._field == \"waterTemp\")\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"waterTemp\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Water Temperature (°C)",
+          "type": "gauge"
+        }
+      ],
+      "title": "Physical Parameters",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "panels": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 300
+                  },
+                  {
+                    "color": "dark-orange",
+                    "value": 600
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 899.9999
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 0,
+            "y": 20
+          },
+          "id": 12,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "tds = from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._field == \"TDS\" and r._measurement == \"mqtt_consumer\")\r\n  |> rename(columns: {_value: \"TDS\"})\r\n\r\ntemp = from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._field == \"waterTemp\" and r._measurement == \"mqtt_consumer\")\r\n  |> rename(columns: {_value: \"waterTemp\"})\r\n\r\njoin(tables: {t: tds, w: temp}, on: [\"_time\"])\r\n  |> map(fn: (r) => ({ _time: r._time, _value: r.TDS / (1.0 + 0.02 * (r.waterTemp - 25.0)) }))\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"TDS25\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Temperature-compensated TDS",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-blue",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 75
+                  },
+                  {
+                    "color": "dark-orange",
+                    "value": 150
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 300
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 6,
+            "y": 20
+          },
+          "id": 13,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket:\"water\")\r\n  |> range(start:-24h)\r\n  |> filter(fn:(r)=>r._field==\"TDS\" and r._measurement==\"mqtt_consumer\")\r\n  |> map(fn:(r)=>({ _time:r._time, _value: float(v:r._value)*0.5 }))\r\n  |> aggregateWindow(every:5m, fn:mean, createEmpty:false)\r\n  |> yield(name:\"hardness\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Water Hardness (Ca²⁺ + Mg²⁺ as ppm CaCO₃)",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 12,
+            "y": 20
+          },
+          "id": 15,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "water = from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._measurement == \"mqtt_consumer\" and r._field == \"waterTemp\")\r\n  |> keep(columns: [\"_time\", \"_value\"])\r\n  |> rename(columns: {_value: \"waterTemp\"})\r\n\r\ntds = from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._measurement == \"mqtt_consumer\" and r._field == \"TDS\")\r\n  |> keep(columns: [\"_time\", \"_value\"])\r\n  |> rename(columns: {_value: \"TDS\"})\r\n\r\njoin(tables: {tds: tds, water: water}, on: [\"_time\"])\r\n|> map(fn: (r) => ({\r\n    _time: r._time,\r\n    _value: if r.TDS > 600.0 and r.waterTemp > 30.0 then 3.0\r\n            else if r.TDS > 300.0 and r.waterTemp > 25.0 then 2.0\r\n            else 1.0,\r\n    _field: \"scalingRisk\"\r\n}))\r\n|> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Solubility Trends (Scaling Risk)",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 75
+                  },
+                  {
+                    "color": "dark-orange",
+                    "value": 150
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 300
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 11,
+            "w": 6,
+            "x": 18,
+            "y": 20
+          },
+          "id": 14,
+          "options": {
+            "displayMode": "gradient",
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "maxVizHeight": 300,
+            "minVizHeight": 16,
+            "minVizWidth": 8,
+            "namePlacement": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": true,
+            "sizing": "auto",
+            "valueMode": "color"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket:\"water\")\r\n  |> range(start:-24h)\r\n  |> filter(fn:(r)=>r._field==\"TDS\" and r._measurement==\"mqtt_consumer\")\r\n  |> map(fn:(r)=>({\r\n      _time:r._time,\r\n      CaMg: float(v:r._value)*0.5,\r\n      Na: float(v:r._value)*0.2,\r\n      Other: float(v:r._value)*0.3\r\n  }))\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Ion Concentration Estimates",
+          "type": "bargauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "1": {
+                      "color": "dark-green",
+                      "index": 0,
+                      "text": "Low"
+                    },
+                    "2": {
+                      "color": "dark-yellow",
+                      "index": 1,
+                      "text": "Med"
+                    },
+                    "3": {
+                      "color": "dark-red",
+                      "index": 2,
+                      "text": "High"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 1
+                  },
+                  {
+                    "color": "dark-yellow",
+                    "value": 2
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 3
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 6,
+            "x": 0,
+            "y": 26
+          },
+          "id": 22,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "join(\r\n  tables: {\r\n    t: from(bucket:\"water\") |> range(start:-24h) |> filter(fn:(r)=>r._field==\"waterTemp\"),\r\n    h: from(bucket:\"water\") |> range(start:-24h) |> filter(fn:(r)=>r._field==\"humidity\")\r\n  }, on:[\"_time\"])\r\n  |> map(fn:(r)=>({\r\n      _time:r._time,\r\n      _value: if r.waterTemp > 30.0 and r.humidity < 40.0 then 3.0\r\n              else if r.waterTemp > 25.0 and r.humidity < 60.0 then 2.0\r\n              else 1.0\r\n  }))\r\n  |> aggregateWindow(every:5m, fn:mean, createEmpty:false)\r\n  |> yield(name:\"evapRisk\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Evaporation Tendency",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "from": 0,
+                    "result": {
+                      "color": "dark-blue",
+                      "index": 0,
+                      "text": "Soft"
+                    },
+                    "to": 75
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 76,
+                    "result": {
+                      "color": "dark-yellow",
+                      "index": 1,
+                      "text": "Moderate"
+                    },
+                    "to": 150
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 151,
+                    "result": {
+                      "color": "dark-orange",
+                      "index": 2,
+                      "text": "Hard"
+                    },
+                    "to": 300
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 301,
+                    "result": {
+                      "index": 3,
+                      "text": "Very Hard"
+                    },
+                    "to": 500
+                  },
+                  "type": "range"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-blue",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 75
+                  },
+                  {
+                    "color": "dark-orange",
+                    "value": 150
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 300
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 6,
+            "x": 6,
+            "y": 26
+          },
+          "id": 23,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket:\"water\")\r\n  |> range(start:-24h)\r\n  |> filter(fn:(r)=>r._field==\"TDS\" and r._measurement==\"mqtt_consumer\")\r\n  |> map(fn:(r)=>({ _time:r._time, _value: float(v:r._value)*0.5 }))\r\n  |> aggregateWindow(every:5m, fn:mean, createEmpty:false)\r\n  |> yield(name:\"hardness\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Water Hardness (Ca²⁺ + Mg²⁺ as ppm CaCO₃)",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "from": 0,
+                    "result": {
+                      "color": "dark-green",
+                      "index": 0,
+                      "text": "Excellent"
+                    },
+                    "to": 300
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 300,
+                    "result": {
+                      "color": "dark-blue",
+                      "index": 1,
+                      "text": "Good"
+                    },
+                    "to": 600
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 601,
+                    "result": {
+                      "color": "dark-yellow",
+                      "index": 2,
+                      "text": "Fair"
+                    },
+                    "to": 900
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 901,
+                    "result": {
+                      "color": "dark-red",
+                      "index": 3,
+                      "text": "Poor"
+                    },
+                    "to": 1200
+                  },
+                  "type": "range"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 6,
+            "x": 12,
+            "y": 26
+          },
+          "id": 24,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) => r._measurement == \"mqtt_consumer\" and r._field == \"TDS\")\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"TDS\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Freshness Estimate",
+          "type": "stat"
+        }
+      ],
+      "title": "Derived Water Chemistry",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 16,
+      "panels": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "from": 0,
+                    "result": {
+                      "color": "dark-red",
+                      "index": 0,
+                      "text": "Poor"
+                    },
+                    "to": 39
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 40,
+                    "result": {
+                      "color": "dark-orange",
+                      "index": 1,
+                      "text": "Fair"
+                    },
+                    "to": 59
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 60,
+                    "result": {
+                      "color": "dark-yellow",
+                      "index": 2,
+                      "text": "Good"
+                    },
+                    "to": 79
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 80,
+                    "result": {
+                      "color": "dark-green",
+                      "index": 3,
+                      "text": "Excellent"
+                    },
+                    "to": 120
+                  },
+                  "type": "range"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 0
+                  },
+                  {
+                    "color": "dark-orange",
+                    "value": 40
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 60
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 7,
+            "x": 0,
+            "y": 32
+          },
+          "id": 25,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) =>\r\n    r._measurement == \"mqtt_consumer\" and (r._field == \"waterTemp\" or r._field == \"TDS\"))\r\n  |> pivot(rowKey:[\"_time\"], columnKey:[\"_field\"], valueColumn:\"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,\r\n      _value: 100.0\r\n        - (if r.TDS > 300.0 then (r.TDS - 300.0) * 0.05 else 0.0)\r\n        - (if r.waterTemp < 15.0 or r.waterTemp > 35.0 then 10.0 else 0.0),\r\n      _field: \"WQI\"\r\n  }))\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,\r\n      _value: if r._value < 0.0 then 0.0 else r._value,\r\n      _field: r._field\r\n  }))\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"WQI\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Water Quality",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "from": 0,
+                    "result": {
+                      "color": "dark-green",
+                      "index": 0,
+                      "text": "Safe"
+                    },
+                    "to": 1
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 1,
+                    "result": {
+                      "color": "dark-yellow",
+                      "index": 1,
+                      "text": "Warning"
+                    },
+                    "to": 2
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 2,
+                    "result": {
+                      "color": "dark-red",
+                      "index": 2,
+                      "text": "Unsafe"
+                    },
+                    "to": 3
+                  },
+                  "type": "range"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 7,
+            "x": 7,
+            "y": 32
+          },
+          "id": 20,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket:\"water\")\r\n  |> range(start:-24h)\r\n  |> filter(fn:(r)=>r._field==\"TDS\" and r._measurement==\"mqtt_consumer\")\r\n  |> map(fn:(r)=>({\r\n      _time:r._time,\r\n      _value: if r._value > 900 then 3.0\r\n              else if r._value > 600 then 2.0\r\n              else 1.0\r\n  }))\r\n  |> aggregateWindow(every:5m, fn:mean, createEmpty:false)\r\n  |> yield(name:\"risk\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Risk Indicators (Safe/Warning/Unsafe)",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 1.01
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 1.02
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 5,
+            "x": 14,
+            "y": 32
+          },
+          "id": 26,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket:\"water\")\r\n  |> range(start:-24h)\r\n  |> filter(fn:(r)=>r._field==\"TDS\" and r._measurement==\"mqtt_consumer\")\r\n  |> map(fn:(r)=>({ _time:r._time, _value: 1.0 + (float(v:r._value)*0.0008) }))\r\n  |> aggregateWindow(every:5m, fn:mean, createEmpty:false)\r\n  |> yield(name:\"density\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Density (g/cm³)",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 6.5
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 6.8
+                  },
+                  {
+                    "color": "dark-yellow",
+                    "value": 7.5
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 8
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 5,
+            "x": 19,
+            "y": 32
+          },
+          "id": 17,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "import \"math\"\r\n\r\nfrom(bucket:\"water\")\r\n  |> range(start:-24h)\r\n  |> filter(fn:(r)=>r._field==\"TDS\" and r._measurement==\"mqtt_consumer\")\r\n  |> map(fn:(r)=>({ _time:r._time, _value: 7.0 - (0.1 * math.log10(x: float(v:r._value)/100.0)) }))\r\n  |> aggregateWindow(every:5m, fn:mean, createEmpty:false)\r\n  |> yield(name:\"pH_estimate\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "pH Estimate (Very Rough)",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 0
+                  },
+                  {
+                    "color": "dark-orange",
+                    "value": 40
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 60
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 5,
+            "x": 0,
+            "y": 38
+          },
+          "id": 19,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket: \"water\")\r\n  |> range(start: -24h)\r\n  |> filter(fn: (r) =>\r\n    r._measurement == \"mqtt_consumer\" and (r._field == \"waterTemp\" or r._field == \"TDS\"))\r\n  |> pivot(rowKey:[\"_time\"], columnKey:[\"_field\"], valueColumn:\"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,\r\n      _value: 100.0\r\n        - (if r.TDS > 300.0 then (r.TDS - 300.0) * 0.05 else 0.0)\r\n        - (if r.waterTemp < 15.0 or r.waterTemp > 35.0 then 10.0 else 0.0),\r\n      _field: \"WQI\"\r\n  }))\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,\r\n      _value: if r._value < 0.0 then 0.0 else r._value,\r\n      _field: r._field\r\n  }))\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"WQI\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Water Quality Index (WQI, 0–100)",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": -20
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": -5
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  },
+                  {
+                    "color": "dark-yellow",
+                    "value": 5
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 20
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 9,
+            "x": 5,
+            "y": 38
+          },
+          "id": 18,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket:\"water\")\r\n  |> range(start:-24h)\r\n  |> filter(fn:(r)=>r._field==\"TDS\" and r._measurement==\"mqtt_consumer\")\r\n  |> derivative(unit:1h, nonNegative:false)\r\n  |> aggregateWindow(every:5m, fn:mean, createEmpty:false)\r\n  |> yield(name:\"TDS_slope\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Conductivity Slope / TDS Change (ppm/hr)",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": -40
+                  },
+                  {
+                    "color": "dark-yellow",
+                    "value": -3
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": -1
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 5,
+            "x": 14,
+            "y": 38
+          },
+          "id": 27,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket:\"water\")\r\n  |> range(start:-24h)\r\n  |> filter(fn:(r)=>r._field==\"TDS\" and r._measurement==\"mqtt_consumer\")\r\n  |> map(fn:(r)=>({ _time:r._time, _value: -0.056*float(v:r._value) }))\r\n  |> aggregateWindow(every:5m, fn:mean, createEmpty:false)\r\n  |> yield(name:\"freezing\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Freezing Point (°C)",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  },
+                  {
+                    "color": "dark-yellow",
+                    "value": 101
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 102
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 5,
+            "x": 19,
+            "y": 38
+          },
+          "id": 28,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket:\"water\")\r\n  |> range(start:-24h)\r\n  |> filter(fn:(r)=>r._field==\"TDS\" and r._measurement==\"mqtt_consumer\")\r\n  |> map(fn:(r)=>({ _time:r._time, _value: 100.0 + (0.03*float(v:r._value)) }))\r\n  |> aggregateWindow(every:5m, fn:mean, createEmpty:false)\r\n  |> yield(name:\"boiling\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Boiling Point (°C)",
+          "type": "gauge"
+        }
+      ],
+      "title": "Quality Indicators",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 30,
+      "panels": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 45
+          },
+          "id": 21,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket: \"water\")\r\n  |> range(start: -7d)\r\n  |> filter(fn: (r) =>\r\n    r._measurement == \"mqtt_consumer\" and (r._field == \"waterTemp\" or r._field == \"TDS\"))\r\n  |> pivot(rowKey:[\"_time\"], columnKey:[\"_field\"], valueColumn:\"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,\r\n      _value: 100.0\r\n        - (if r.TDS > 300.0 then (r.TDS - 300.0) * 0.05 else 0.0)\r\n        - (if r.waterTemp < 15.0 or r.waterTemp > 35.0 then 10.0 else 0.0),\r\n      _field: \"WQI\"\r\n  }))\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,\r\n      _value: if r._value < 0.0 then 0.0 else r._value,\r\n      _field: r._field\r\n  }))\r\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\r\n  |> yield(name: \"WQI_trend\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "WQI Trend (7d)",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "cevlfpdgqdtdsc"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 45
+          },
+          "id": 29,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "query": "from(bucket:\"water\")\r\n  |> range(start:-24h)\r\n  |> filter(fn:(r)=>r._field==\"TDS\" and r._measurement==\"mqtt_consumer\")\r\n  |> aggregateWindow(every:5m, fn:mean, createEmpty:false)\r\n  |> yield(name:\"TDS_trend\")\r\n",
+              "refId": "A"
+            }
+          ],
+          "title": "TDS 24h",
+          "type": "gauge"
+        }
+      ],
+      "title": "Trends / Alerts",
+      "type": "row"
+    }
+  ],
+  "preload": false,
+  "refresh": "auto",
+  "schemaVersion": 41,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Main Dashboard",
+  "uid": "fevqjhmpylqm8f",
+  "version": 66
+}
