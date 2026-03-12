@@ -34,7 +34,7 @@ The robot can automatically collect and analyze environmental data from water bo
 # Complete Robot System
 
 <p align="center">
-<img src="images/robot_complete.jpg" width="700">
+<img src="Media/Complete Unit.webp" width="700">
 </p>
 
 The final system consists of a floating robotic platform equipped with sensors, wireless communication modules, and an IoT dashboard for monitoring environmental data.
@@ -44,7 +44,7 @@ The final system consists of a floating robotic platform equipped with sensors, 
 # System Architecture
 
 <p align="center">
-<img src="images/system_architecture.png" width="800">
+<img src="Media/system_architecture.png" width="800">
 </p>
 
 The system architecture integrates hardware sensors, wireless communication, cloud data processing, and a real-time dashboard.
@@ -71,7 +71,7 @@ The system architecture integrates hardware sensors, wireless communication, clo
 # Mechanical Design (SolidWorks)
 
 <p align="center">
-<img src="images/mechanical_model.png" width="700">
+<img src="Media/Boat moadal psd.webp" width="700">
 </p>
 
 The mechanical structure was designed using **SolidWorks** with a **catamaran hull design** to provide stability in water.
@@ -88,7 +88,7 @@ The mechanical structure was designed using **SolidWorks** with a **catamaran hu
 # Circuit Design
 
 <p align="center">
-<img src="images/circuit_diagram.png" width="750">
+<img src="Media/circuit_diagram.png" width="750">
 </p>
 
 A custom electronic circuit was designed to integrate sensors, communication modules, and power management.
@@ -108,13 +108,13 @@ A custom electronic circuit was designed to integrate sensors, communication mod
 ### PCB Top Layer
 
 <p align="center">
-<img src="images/pcb_top.png" width="650">
+<img src="Media/pcb_top.png" width="650">
 </p>
 
 ### PCB Bottom Layer
 
 <p align="center">
-<img src="images/pcb_bottom.png" width="650">
+<img src="Media/pcb_bottom.png" width="650">
 </p>
 
 The PCB was designed using **Altium Designer** with optimized routing and ground planes for stable sensor measurements.
@@ -124,7 +124,7 @@ The PCB was designed using **Altium Designer** with optimized routing and ground
 # PCB Prototype
 
 <p align="center">
-<img src="images/pcb_prototype.jpg" width="650">
+<img src="Media/PCB_Prtotype.webp" width="650">
 </p>
 
 Initial testing was conducted using prototype PCBs to validate circuit functionality and sensor interfacing.
@@ -134,7 +134,7 @@ Initial testing was conducted using prototype PCBs to validate circuit functiona
 # Fabricated PCB
 
 <p align="center">
-<img src="images/pcb_fabricated.jpg" width="650">
+<img src="Media/pcb_fabricated.jpg" width="650">
 </p>
 
 The final PCB was fabricated using **FR4 double-layer boards**, ensuring improved durability and electrical reliability.
@@ -144,7 +144,7 @@ The final PCB was fabricated using **FR4 double-layer boards**, ensuring improve
 # IoT Monitoring Dashboard
 
 <p align="center">
-<img src="images/dashboard.png" width="850">
+<img src="Media/Dashboard.webp" width="850">
 </p>
 
 The system includes a **real-time IoT dashboard** displaying sensor readings and historical environmental data.
