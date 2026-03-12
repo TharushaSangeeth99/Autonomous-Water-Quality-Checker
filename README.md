@@ -36,7 +36,7 @@ This project was developed as a **Final Year Research Project at Wayamba Univers
 # Complete Robot System
 
 <p align="center">
-<img src="Media/Complete Unit.webp" width="500">
+<img src="Media/Complete Unit.webp" width="600">
 </p>
 
 The final system consists of a floating robotic platform equipped with sensors, wireless communication modules, and an IoT dashboard for monitoring environmental data.
