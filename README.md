@@ -240,7 +240,9 @@ Final Year Undergraduate Research Project
 Presented at **ASRITE Research Symposium**
 
 **Project Supervisor**  
-Eng. S.R.L. Gunawardhana 
+Eng. S.R.L. Gunawardhana
+Department of Electronics  
+Wayamba University of Sri Lanka
 
 ---
 
